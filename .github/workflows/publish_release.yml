@@ -32,6 +32,10 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
+      - name: To LowerCase
+        run: |
+            echo "REPO_NAME=${GITHUB_REPOSITORY,,}" >>${GITHUB_ENV}
+
       - name: Build container image
         run: |
-            docker buildx build --push --platform linux/amd64,linux/arm64 --tag ghcr.io/${{ github.repository }}/valhalla:${{ steps.extract_branch.outputs.branch }} .
+            docker buildx build --push --platform linux/amd64,linux/arm64 --tag ghcr.io/${{ env.REPO_NAME }}/valhalla:${{ steps.extract_branch.outputs.branch }} .
