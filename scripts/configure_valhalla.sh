@@ -124,7 +124,7 @@ if test -f "${CONFIG_FILE}"; then
     valhalla_build_config > ${TMP_CONFIG_FILE}  || exit 1
 
     # for each path in the temp config (excluding array indices)
-    jq -r 'paths | select(map(type) | index("number") | not ) | "." + join(".")' ${TMP_CONFIG_FILE} | while read key ; do
+    jq -r 'paths(scalars | true) | select(map(type) | index("number") | not ) | [.[] | "[\"\(.)\"]"] | join("")' ${TMP_CONFIG_FILE} | while read key ; do
 
       # if the key path does not exist in the existing config 
       jq -e "${key} | if type == \"null\" then false else true end" ${CONFIG_FILE} >/dev/null
