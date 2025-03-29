@@ -8,10 +8,10 @@ A hyper-flexible Docker image for the excellent [Valhalla](https://github.com/va
 # download a file to custom_files and start valhalla
 mkdir custom_files
 wget -O custom_files/andorra-latest.osm.pbf https://download.geofabrik.de/europe/andorra-latest.osm.pbf
-docker run -dt --name valhalla_gis-ops -p 8002:8002 -v $PWD/custom_files:/custom_files ghcr.io/gis-ops/docker-valhalla/valhalla:latest
+docker run -dt --name valhalla_gis-ops -p 8002:8002 -v $PWD/custom_files:/custom_files ghcr.io/nilsnolde/docker-valhalla:latest
 
 # or let the container download the file for you
-docker run -dt --name valhalla_gis-ops -p 8002:8002 -v $PWD/custom_files:/custom_files -e tile_urls=https://download.geofabrik.de/europe/andorra-latest.osm.pbf ghcr.io/gis-ops/docker-valhalla/valhalla:latest
+docker run -dt --name valhalla_gis-ops -p 8002:8002 -v $PWD/custom_files:/custom_files -e tile_urls=https://download.geofabrik.de/europe/andorra-latest.osm.pbf ghcr.io/nilsnolde/docker-valhalla:latest
 ```
 
 This image aims at being user-friendly and most efficient with your time and resources. Once built, you can easily change Valhalla's configuration, the underlying OSM data graphs are built from, accompanying data (like Admin Areas, elevation tiles) or even pre-built graph tiles. Upon `docker restart <container>` those changes are taken into account via **hashed files**, and, if necessary, new graph tiles will be built automatically.
@@ -53,7 +53,7 @@ If you want to build the image yourself, be aware that you might need to adapt t
 Then it's a simple
 
 ```shell script
-docker build -t ghcr.io/gis-ops/docker-valhalla/valhalla:latest .
+docker build -t ghcr.io/nilsnolde/docker-valhalla:latest .
 ```
 
 ## Environment variables
@@ -84,7 +84,7 @@ For the following instructions to work, you'll need to have the image locally av
 Start a background container from that image:
 
 ```bash
-docker run -dt -v $PWD/custom_files:/custom_files -p 8002:8002 --name valhalla ghcr.io/gis-ops/docker-valhalla/valhalla:latest
+docker run -dt -v $PWD/custom_files:/custom_files -p 8002:8002 --name valhalla ghcr.io/nilsnolde/docker-valhalla:latest
 ```
 
 The important part here is, that you map a volume from your host machine to the container's **`/custom_files`**. The container will dump all relevant Valhalla files to that directory.
@@ -103,7 +103,7 @@ Put the unzipped GTFS feeds as subfolders in the main gtfs folder, e.g. `gtfs_fe
 To enable `multimodal` routing, you'll need to map the directory which contains all the GTFS feeds to the container's `/gtfs_feeds` directory, e.g.
 
 ```
-docker run -dt -v gtfs_feeds:/gtfs_feeds -v $PWD/custom_files:/custom_files -p 8002:8002 --name valhalla gisops/valhalla:latest
+docker run -dt -v gtfs_feeds:/gtfs_feeds -v $PWD/custom_files:/custom_files -p 8002:8002 --name valhalla nilsnolde/docker-valhalla:latest
 ```
 
 #### Build Valhalla with arbitrary OSM data
