@@ -31,7 +31,7 @@ This image aims at being user-friendly and most efficient with your time and res
 > With the recent (17.03.2023) announcement of Docker to remove free "teams" (even those providing FOSS like us), we moved our images to Github packages.
 > If it's not on Github you'll find an image version still on Dockerhub.
 
-Our [package registry](https://github.com/gis-ops/docker-valhalla/pkgs/container/docker-valhalla%2Fvalhalla) provides the following:
+Our [package registry](https://github.com/nilsnolde/docker-valhalla/pkgs/container/docker-valhalla%2Fvalhalla) provides the following:
 
 - stable release tags (e.g. 3.0.9)
 - `latest`, updated from Valhalla Github repository every Saturday morning
