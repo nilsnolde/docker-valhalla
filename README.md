@@ -1,4 +1,4 @@
-[![ci tests](https://github.com/gis-ops/docker-valhalla/actions/workflows/tests.yml/badge.svg)](https://github.com/gis-ops/docker-valhalla/actions/workflows/tests.yml)
+[![ci tests](https://github.com/nilsnolde/docker-valhalla/actions/workflows/tests.yml/badge.svg)](https://github.com/nilsnolde/docker-valhalla/actions/workflows/tests.yml)
 
 # Valhalla Docker image by GIS • OPS
 
@@ -27,10 +27,6 @@ This image aims at being user-friendly and most efficient with your time and res
 
 ## Dockerhub/Github Packages
 
-> [!NOTE]
-> With the recent (17.03.2023) announcement of Docker to remove free "teams" (even those providing FOSS like us), we moved our images to Github packages.
-> If it's not on Github you'll find an image version still on Dockerhub.
-
 Our [package registry](https://github.com/nilsnolde/docker-valhalla/pkgs/container/docker-valhalla%2Fvalhalla) provides the following:
 
 - stable release tags (e.g. 3.0.9)
@@ -48,7 +44,6 @@ If you want to build the image yourself, be aware that you might need to adapt t
 
 > [!NOTE]
 > before Valhalla version `3.1.0` the building scheme was completely different.
-> Please contact enquiry@gis-ops.com if you need access to previous Valhalla versions via Docker.
 
 Then it's a simple
 
@@ -81,7 +76,7 @@ This image respects the following custom environment variables to be passed duri
 
 ## Container recipes
 
-For the following instructions to work, you'll need to have the image locally available already, either from [Github Docker registry](https://github.com/gis-ops/docker-valhalla/pkgs/container/docker-valhalla%2Fvalhalla) or from [local](#build-the-image).
+For the following instructions to work, you'll need to have the image locally available already, either from [Github Docker registry](https://github.com/nilsnolde/docker-valhalla/pkgs/container/docker-valhalla%2Fvalhalla) or from [local](#build-the-image).
 
 Start a background container from that image:
 
