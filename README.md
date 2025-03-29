@@ -58,24 +58,26 @@ docker build -t ghcr.io/nilsnolde/docker-valhalla:latest .
 
 ## Environment variables
 
-This image respects the following custom environment variables to be passed during container startup. Note, all variables have a default:
+This image respects the following custom environment variables to be passed during container startup:
 
-- `tile_urls`: Add as many (space-separated) URLs as you like, e.g. https://download.geofabrik.de/europe/andorra-latest.osm.pbf
-- `use_tiles_ignore_pbf`: `True` uses a local tile.tar file and skips building. Default `True`.
-- `force_rebuild`: `True` forces a rebuild of the routing tiles and sets `build_tar` to `Force`. Default `False`.
-- `build_elevation`: `True` downloads elevation tiles which are covering the routing graph. `Force` will do the same, but first delete any existing elevation tiles. Default `False`.
-- `build_admins`: `True` builds the admin db needed for things like border-crossing penalties and detailed routing responses. `Force` will do the same, but first delete the existing db. Default `False`.
-- `build_time_zones`: `True` builds the timezone db which is needed for time-dependent routing. `Force` will do the same, but first delete the existing db. Default `False`.
-- `build_transit`: `True` will attempt to build transit tiles if none exist yet. `Force` will remove existing transit **and** routing tiles. Default `False`.
-- `build_tar` (since 29.10.2021/v`3.1.5`): `True` creates a tarball of the tiles including an index which allows for extremely faster graph loading after reboots. `Force` will do the same, but first delete the existing tarball. Default `True`.
-- `server_threads`: How many threads `valhalla_build_tiles` will use and `valhalla_service` will run with. Default is the value of `nproc`. If valhalla kills itself when building tiles, lower this number. 
-- `path_extension`: This path will be appended to the container-internal `/custom_files` (and by extension to the docker volume mapped to that path) and will be the directory where all files will be created. Can be very useful in certain deployment scenarios. No leading/trailing path separator allowed. Default is ''.
-- `serve_tiles`: `True` starts the valhalla service. Default `True`.
-- `tileset_name`: The name of the resulting graph on disk. Very useful in case you want to build multiple datasets in the same directory. Default `valhalla_tiles`.
-- `traffic_name`: The name of the traffic.tar. Again, useful for serving mulitple traffic archives from the same directory. If empty, i.e. "", then no traffic archive will be built. Default `traffic.tar`.
-- `update_existing_config`: `True` updates missing keys in existing valhalla.json. Useful for updating stale config files to include newly introduced config parameters. Default `True`.
-- `use_default_speeds_config`: `True` loads a JSON file used to enhance default speeds (or falls back to an existing `custom_files/default_speeds.json`) and sets the respective config entry. Read more [here](https://github.com/OpenStreetMapSpeeds/schema). Default `False`.
-- `default_speeds_config_url`: Remote location of the `default_speeds_config` JSON. Default `https://raw.githubusercontent.com/OpenStreetMapSpeeds/schema/master/default_speeds.json`
+| Environment Variable | Default | Description |
+|--|--|--|
+| `tile_urls` |  | Add as many (space-separated) URLs as you like, e.g. https://download.geofabrik.de/europe/andorra-latest.osm.pbf |
+| `use_tiles_ignore_pbf` | `True` | `True` uses a local tile.tar file and skips building. |
+| `force_rebuild` | `False` | `True` forces a rebuild of the routing tiles and sets `build_tar` to `Force`. |
+| `build_elevation` | `False` | `True` downloads elevation tiles which are covering the routing graph. <br> `Force` will do the same, but first delete any existing elevation tiles. |
+| `build_admins` | `False` | `True` builds the admin db needed for things like border-crossing penalties and detailed routing responses. <br> `Force` will do the same, but first delete the existing db. |
+| `build_time_zones`| `False` | `True` builds the timezone db which is needed for time-dependent routing. <br> `Force` will do the same, but first delete the existing db. |
+| `build_transit` | `False` | `True` will attempt to build transit tiles if none exist yet.  <br>`Force` will remove existing transit **and** routing tiles. |
+| `build_tar` (since 29.10.2021/v`3.1.5`) | `True` | `True` creates a tarball of the tiles including an index which allows for extremely faster graph loading after reboots. <br> `Force` will do the same, but first delete the existing tarball. |
+| `server_threads` | value of `nproc` | How many threads `valhalla_build_tiles` will use and `valhalla_service` will run with. <br> If valhalla kills itself when building tiles, lower this number.  |
+| `path_extension` | `''` | This path will be appended to the container-internal `/custom_files` (and by extension to the docker volume mapped to that path) and will be the directory where all files will be created. <br> Can be very useful in certain deployment scenarios. No leading/trailing path separator allowed. |
+| `serve_tiles` | `True` | `True` starts the valhalla service. |
+| `tileset_name` | `valhalla_tiles` | The name of the resulting graph on disk.<br>Very useful in case you want to build multiple datasets in the same directory. |
+| `traffic_name` | `traffic.tar` | The name of the `traffic.tar`.<br>Setting this to be empty (i.e. `""`) will cause no traffic archive to be built.<br>Again, useful for serving mulitple traffic archives from the same directory. |
+| `update_existing_config` | `True` | `True` updates missing keys in existing `valhalla.json`.<br>Useful for updating stale config files to include newly introduced config parameters. |
+| `use_default_speeds_config` | `False` | `True` loads a JSON file used to enhance default speeds (or falls back to an existing `custom_files/default_speeds.json`) and sets the respective config entry. Read more [here](https://github.com/OpenStreetMapSpeeds/schema). |
+| `default_speeds_config_url` | [this url](https://raw.githubusercontent.com/OpenStreetMapSpeeds/schema/master/default_speeds.json) | Remote location of the `default_speeds_config` JSON. |
 
 ## Container recipes
 
